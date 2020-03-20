@@ -1,4 +1,4 @@
-# Name
+# Kubernetes in Docker (KIND) Getting Started
 
 Overview
 
