@@ -14,6 +14,10 @@ Overview
 ## Requirement
 
 ## Usage
+### Installation
+```
+$ brew install kind
+```
 
 ## Installation
 
