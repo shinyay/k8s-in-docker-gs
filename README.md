@@ -91,6 +91,15 @@ kubectl cluster-info --context kind-kind-cluster
 Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
 ```
 
+### Confirn Cluster
+```
+$ kubectl config get-contexts
+CURRENT   NAME                                                  CLUSTER                                               AUTHINFO                                              NAMESPACE
+          gke_pa-syanagihara_us-central1-a_standard-cluster-1   gke_pa-syanagihara_us-central1-a_standard-cluster-1   gke_pa-syanagihara_us-central1-a_standard-cluster-1
+*         kind-kind-cluster                                     kind-kind-cluster                                     kind-kind-cluster
+          minikube                                              minikube                                              minikube
+```
+
 ## Installation
 
 ## Licence
