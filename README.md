@@ -73,6 +73,24 @@ Global Flags:
   -v, --verbosity int32   info log verbosity
 ```
 
+```
+$ kind create cluster --name kind-cluster
+
+Creating cluster "kind-cluster" ...
+ ✓ Ensuring node image (kindest/node:v1.17.0) 🖼
+ ✓ Preparing nodes 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
+Set kubectl context to "kind-kind-cluster"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-kind-cluster
+
+Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
+```
+
 ## Installation
 
 ## Licence
