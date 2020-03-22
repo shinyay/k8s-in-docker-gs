@@ -91,7 +91,7 @@ kubectl cluster-info --context kind-kind-cluster
 Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
 ```
 
-### Confirn Cluster
+### Confirm Cluster
 ```
 $ kubectl config get-contexts
 CURRENT   NAME                                                  CLUSTER                                               AUTHINFO                                              NAMESPACE
@@ -100,6 +100,11 @@ CURRENT   NAME                                                  CLUSTER         
           minikube                                              minikube                                              minikube
 ```
 
+```
+$ docker ps
+CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                       NAMES
+72dd3c3f41ac        kindest/node:v1.17.0   "/usr/local/bin/entr…"   11 minutes ago      Up 10 minutes       127.0.0.1:32768->6443/tcp   kind-cluster-control-plane
+```
 ## Installation
 
 ## Licence
