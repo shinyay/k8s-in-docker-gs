@@ -113,6 +113,18 @@ NAME                         STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXT
 kind-cluster-control-plane   Ready    master   24h   v1.17.0   172.17.0.2    <none>        Ubuntu 19.10   4.19.76-linuxkit   containerd://1.3.2
 ```
 
+### Delete Cluster
+```
+$ kind delete cluster --name kind-cluster
+Deleting cluster "kind-cluster" ...
+
+$ kind get clusters
+No kind clusters found.
+
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+```
+
 ## Installation
 
 ## Licence
