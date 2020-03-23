@@ -105,6 +105,14 @@ $ docker ps
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                       NAMES
 72dd3c3f41ac        kindest/node:v1.17.0   "/usr/local/bin/entr…"   11 minutes ago      Up 10 minutes       127.0.0.1:32768->6443/tcp   kind-cluster-control-plane
 ```
+
+### Confirm Nodes
+```
+$ kubectl get nodes -o wide
+NAME                         STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE       KERNEL-VERSION     CONTAINER-RUNTIME
+kind-cluster-control-plane   Ready    master   24h   v1.17.0   172.17.0.2    <none>        Ubuntu 19.10   4.19.76-linuxkit   containerd://1.3.2
+```
+
 ## Installation
 
 ## Licence
