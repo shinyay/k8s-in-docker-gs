@@ -172,6 +172,34 @@ multi-worker          Ready    <none>   14m   v1.17.0   172.17.0.3    <none>    
 multi-worker2         Ready    <none>   14m   v1.17.0   172.17.0.2    <none>        Ubuntu 19.10   4.19.76-linuxkit   containerd://1.3.2
 ```
 
+### Specific Kubernetes version
+
+- `kind create cluster --image kindest/node:vX.XX.X` 
+  - [KIND version](https://hub.docker.com/r/kindest/node/tags)
+
+```
+$ kind create cluster --image kindest/node:v1.15.7
+
+Creating cluster "kind" ...
+ ✓ Ensuring node image (kindest/node:v1.15.7) 🖼
+ ✓ Preparing nodes 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
+Set kubectl context to "kind-kind"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-kind
+```
+
+```
+$ kubectl get nodes -o wide
+
+NAME                 STATUS   ROLES    AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE       KERNEL-VERSION     CONTAINER-RUNTIME
+kind-control-plane   Ready    master   6m38s   v1.15.7   172.17.0.2    <none>        Ubuntu 19.10   4.19.76-linuxkit   containerd://1.3.2
+```
+
 ## Installation
 
 ## Licence
