@@ -125,6 +125,38 @@ $ docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 ```
 
+### Multi-node Clusters
+
+```
+$ vim multi-node-1cp-2wk.yml
+
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: worker
+- role: worker
+```
+
+```
+$ kind create cluster --name multi --config multi-node-1cp-2wk.yml
+
+Creating cluster "multi" ...
+ ✓ Ensuring node image (kindest/node:v1.17.0) 🖼
+ ✓ Preparing nodes 📦 📦 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
+ ✓ Joining worker nodes 🚜
+Set kubectl context to "kind-multi"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-multi
+
+Thanks for using kind! 😊
+```
+
 ## Installation
 
 ## Licence
