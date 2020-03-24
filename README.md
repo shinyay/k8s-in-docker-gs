@@ -157,6 +157,21 @@ kubectl cluster-info --context kind-multi
 Thanks for using kind! 😊
 ```
 
+```
+$ kind get cluster
+
+multi
+```
+
+```
+$ kubectl get nodes -o wide
+
+NAME                  STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE       KERNEL-VERSION     CONTAINER-RUNTIME
+multi-control-plane   Ready    master   15m   v1.17.0   172.17.0.4    <none>        Ubuntu 19.10   4.19.76-linuxkit   containerd://1.3.2
+multi-worker          Ready    <none>   14m   v1.17.0   172.17.0.3    <none>        Ubuntu 19.10   4.19.76-linuxkit   containerd://1.3.2
+multi-worker2         Ready    <none>   14m   v1.17.0   172.17.0.2    <none>        Ubuntu 19.10   4.19.76-linuxkit   containerd://1.3.2
+```
+
 ## Installation
 
 ## Licence
