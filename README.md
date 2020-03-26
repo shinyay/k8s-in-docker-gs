@@ -20,7 +20,7 @@ $ brew install kind
 ```
 
 ### kind cli
-````
+```
 $ kind -h
 
 kind creates and manages local Kubernetes clusters using Docker container 'nodes'
@@ -198,6 +198,26 @@ $ kubectl get nodes -o wide
 
 NAME                 STATUS   ROLES    AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE       KERNEL-VERSION     CONTAINER-RUNTIME
 kind-control-plane   Ready    master   6m38s   v1.15.7   172.17.0.2    <none>        Ubuntu 19.10   4.19.76-linuxkit   containerd://1.3.2
+```
+
+### Extra port mapping
+```yaml
+kind: Cluster
+apiVersion: kind.sigs.k8s.io/v1alpha3
+nodes:
+- role: control-plane
+- role: worker
+  extraPortMappings:
+  - containerPort: 30001
+    hostPort: 30001
+```
+
+```
+$ docker ps
+
+CONTAINER ID        IMAGE                  COMMAND                  CREATED              STATUS              PORTS                       NAMES
+859e4b98a8e8        kindest/node:v1.17.0   "/usr/local/bin/entr…"   About a minute ago   Up About a minute   0.0.0.0:30001->30001/tcp    kind-worker
+47b9ae1f6167        kindest/node:v1.17.0   "/usr/local/bin/entr…"   About a minute ago   Up About a minute   127.0.0.1:32776->6443/tcp   kind-control-plane
 ```
 
 ## Installation
