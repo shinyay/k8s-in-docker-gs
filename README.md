@@ -255,6 +255,25 @@ NAMESPACE       NAME                                        READY   STATUS    RE
 ingress-nginx   nginx-ingress-controller-7f74f657bd-gv2gt   1/1     Running   0          24m
 ```
 
+#### Detect installed version
+```
+$ set POD_NAMESPACE ingress-nginx
+
+$ set POD_NAME (kubectl get pods -n $POD_NAMESPACE -l app.kubernetes.io/name=ingress-nginx -o jsonpath='{.items[0].metadata.name}')
+
+$ kubectl exec -it $POD_NAME -n $POD_NAMESPACE -- /nginx-ingress-controller --version
+
+
+-------------------------------------------------------------------------------
+NGINX Ingress controller
+  Release:       0.30.0
+  Build:         git-7e65b90c4
+  Repository:    https://github.com/kubernetes/ingress-nginx
+  nginx version: nginx/1.17.8
+
+-------------------------------------------------------------------------------
+```
+
 ## Installation
 
 ## Licence
