@@ -240,6 +240,21 @@ deployment.apps/nginx-ingress-controller created
 limitrange/ingress-nginx created
 ```
 
+#### Provider Specific Configuration
+```
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/cloud-generic.yaml
+
+service/ingress-nginx created
+```
+
+#### Verification for installation
+```
+$ kubectl get pods --all-namespaces -l app.kubernetes.io/name=ingress-nginx --watch
+
+NAMESPACE       NAME                                        READY   STATUS    RESTARTS   AGE
+ingress-nginx   nginx-ingress-controller-7f74f657bd-gv2gt   1/1     Running   0          24m
+```
+
 ## Installation
 
 ## Licence
