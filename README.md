@@ -220,6 +220,26 @@ CONTAINER ID        IMAGE                  COMMAND                  CREATED     
 47b9ae1f6167        kindest/node:v1.17.0   "/usr/local/bin/entr…"   About a minute ago   Up About a minute   127.0.0.1:32776->6443/tcp   kind-control-plane
 ```
 
+### Ingress Controller - NGINX
+- [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/deploy/)
+
+#### Prerequisite Generic Deployment Command
+```
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
+
+namespace/ingress-nginx created
+configmap/nginx-configuration created
+configmap/tcp-services created
+configmap/udp-services created
+serviceaccount/nginx-ingress-serviceaccount created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-clusterrole created
+role.rbac.authorization.k8s.io/nginx-ingress-role created
+rolebinding.rbac.authorization.k8s.io/nginx-ingress-role-nisa-binding created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-clusterrole-nisa-binding created
+deployment.apps/nginx-ingress-controller created
+limitrange/ingress-nginx created
+```
+
 ## Installation
 
 ## Licence
