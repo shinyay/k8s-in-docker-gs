@@ -255,6 +255,28 @@ NAMESPACE       NAME                                        READY   STATUS    RE
 ingress-nginx   nginx-ingress-controller-7f74f657bd-gv2gt   1/1     Running   0          24m
 ```
 
+- EXTERNAL-IP: `<pending>`
+```
+$ kubectl get services -n ingress-nginx -owide
+
+NAME            TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE   SELECTOR
+ingress-nginx   LoadBalancer   10.96.180.192   <pending>     80:32511/TCP,443:30877/TCP   11m   app.kubernetes.io/name=ingress-nginx,app.kubernetes.io/part-of=ingress-nginx  containerd://1.3.2
+```
+
+#### Expose Ingess from KIND at Bare-metal
+```
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/service-nodeport.yaml
+
+service/ingress-nginx configured
+```
+
+```
+$ kubectl get services -n ingress-nginx -owide
+
+NAME            TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE   SELECTOR
+ingress-nginx   NodePort   10.96.180.192   <none>        80:32511/TCP,443:30877/TCP   51m   app.kubernetes.io/name=ingress-nginx,app.kubernetes.io/part-of=ingress-nginx
+```
+
 #### Detect installed version
 ```
 $ set POD_NAMESPACE ingress-nginx
