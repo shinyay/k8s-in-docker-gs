@@ -310,6 +310,46 @@ $ set POD_NAME (kubectl get pods -n $POD_NAMESPACE -l app.kubernetes.io/name=ing
 
 $ kubectl exec -it $POD_NAME -n $POD_NAMESPACE -- /nginx-ingress-controller --version
 
+#### Patch to forward hostPorts to Ingress Controller
+```json
+{
+  "spec": {
+    "template": {
+      "spec": {
+        "containers": [
+        {
+          "name": "nginx-ingress-controller",
+          "ports": [
+          {
+            "containerPort": 80,
+            "hostPort": 80
+          },
+          {
+            "containerPort": 443,
+            "hostPort": 443
+          }
+          ]
+        }
+        ],
+        "nodeSelector": {
+          "ingress-ready": "true"
+        },
+        "tolerations": [
+        {
+          "key": "node-role.kubernetes.io/master",
+          "operator": "Equal",
+          "effect": "NoSchedule"
+        }
+        ]
+      }
+    }
+  }
+}
+```
+
+```
+$ kubectl patch deployments -n ingress-nginx nginx-ingress-controller -p '{"spec":{"template":{"spec":{"containers":[{"name":"nginx-ingress-controller","ports":[{"containerPort":80,"hostPort":80},{"containerPort":443,"hostPort":443}]}],"nodeSelector":{"ingress-ready":"true"},"tolerations":[{"key":"node-role.kubernetes.io/master","operator":"Equal","effect":"NoSchedule"}]}}}}'
+```
 
 -------------------------------------------------------------------------------
 NGINX Ingress controller
