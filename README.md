@@ -223,6 +223,31 @@ CONTAINER ID        IMAGE                  COMMAND                  CREATED     
 ### Ingress Controller - NGINX
 - [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/deploy/)
 
+#### Cluster for Ingress Controller
+- **extraPortMappings**
+- **node-labels**
+
+```
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+        authorization-mode: "AlwaysAllow"
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+    protocol: TCP
+  - containerPort: 443
+    hostPort: 443
+    protocol: TCP
+```
+
 #### Prerequisite Generic Deployment Command
 ```
 $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
