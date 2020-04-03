@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: web
+        version: v1
+    spec:
+      containers:
+      - image: envweb:v1
+        imagePullPolicy: IfNotPresent
+        name: envweb
+        env:
+        - name: MSG
+          value: This app is version 1
+        ports:
+        - containerPort: 8080
