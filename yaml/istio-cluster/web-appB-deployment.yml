@@ -15,7 +15,7 @@ spec:
         version: v2
     spec:
       containers:
-      - image: envweb:v1
+      - image: shinyay/envweb:0.0.1
         imagePullPolicy: IfNotPresent
         name: envweb
         env:
