@@ -389,6 +389,59 @@ $ kubectl cluster-info --context kind-kind
 $ kubectl config use-context kind-kind
 ```
 
+#### App deployment for Kind Cluster
+```
+$ docker pull shinyay/envweb:0.0.1
+$ kind load docker-image shinyay/envweb:0.0.1
+```
+
+```
+$ docker exec -it kind-worker crictl images
+
+IMAGE                                      TAG                 IMAGE ID            SIZE
+docker.io/kindest/kindnetd                 0.5.4               2186a1a396deb       113MB
+docker.io/rancher/local-path-provisioner   v0.0.11             9d12f9848b99f       36.5MB
+docker.io/shinyay/envweb                   0.0.1               4ab3467743a10       13.3MB
+k8s.gcr.io/coredns                         1.6.5               70f311871ae12       41.7MB
+k8s.gcr.io/debian-base                     v2.0.0              9bd6154724425       53.9MB
+k8s.gcr.io/etcd                            3.4.3-0             303ce5db0e90d       290MB
+k8s.gcr.io/kube-apiserver                  v1.17.0             134ad2332e042       144MB
+k8s.gcr.io/kube-controller-manager         v1.17.0             7818d75a7d002       131MB
+k8s.gcr.io/kube-proxy                      v1.17.0             551eaeb500fda       132MB
+k8s.gcr.io/kube-scheduler                  v1.17.0             09a204f38b41d       112MB
+k8s.gcr.io/pause                           3.1                 da86e6ba6ca19       746kB
+```
+
+#### Istio download & deploy
+```
+$ curl -L https://istio.io/downloadIstio | sh -
+$ cp istio-*/bin/istioctl /usr/local/bin/
+$ istioctl manifest apply --set profile=default
+```
+
+|Core Components|default|demo|minimal|remote|
+|---------------|-------|----|-------|------|
+|istio-egressgateway||X|||
+|istio-ingressgateway|X|X|||
+|istio-pilot|X|X|X||
+
+|Addons|default|demo|minimal|remote|
+|------|-------|----|-------|------|
+|grafana||X|||
+|istio-tracing||X|||
+|kiali||X|||
+|prometheus|X|X||X|
+
+```
+$ kubectl -n istio-system get svc
+
+NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                                                                                                                      AGE
+istio-ingressgateway   LoadBalancer   10.96.19.235    <pending>     15020:32549/TCP,80:32137/TCP,443:32497/TCP,15029:31629/TCP,15030:30294/TCP,15031:30602/TCP,15032:31748/TCP,15443:32423/TCP,31400:31451/TCP   10m
+istio-pilot            ClusterIP      10.96.133.178   <none>        15010/TCP,15011/TCP,15012/TCP,8080/TCP,15014/TCP,443/TCP                                                                                     20m
+istiod                 ClusterIP      10.96.214.109   <none>        15012/TCP,443/TCP                                                                                                                            20m
+prometheus             ClusterIP      10.96.190.234   <none>        9090/TCP                                                                                                                                     10m
+```
+
 ## Installation
 
 ## Licence
