@@ -441,6 +441,79 @@ istio-pilot            ClusterIP      10.96.133.178   <none>        15010/TCP,15
 istiod                 ClusterIP      10.96.214.109   <none>        15012/TCP,443/TCP                                                                                                                            20m
 prometheus             ClusterIP      10.96.190.234   <none>        9090/TCP                                                                                                                                     10m
 ```
+#### Local Env Configuration for `istio-ingressgateway`
+```
+$ kubectl -n istio-system edit svc istio-ingressgateway
+```
+
+##### Type
+```
+  selector:
+    app: istio-ingressgateway
+    istio: ingressgateway
+  sessionAffinity: None
+  type: LoadBalancer
+```
+
+```
+  selector:
+    app: istio-ingressgateway
+    istio: ingressgateway
+  sessionAffinity: None
+  type: NodePort
+```
+
+#### Port
+
+```
+  - name: http2
+    nodePort: 31464
+    port: 80
+    protocol: TCP
+    targetPort: 80
+```
+
+```
+  - name: http2
+    nodePort: 30080
+    port: 80
+    protocol: TCP
+    targetPort: 80
+```
+
+#### Manifest apply with Istio
+```
+$ kubectl get ns --show-labels
+
+NAME                 STATUS   AGE   LABELS
+default              Active   89m   <none>
+istio-system         Active   50m   istio-injection=disabled,istio-operator-managed=Reconcile,operator.istio.io/component=Base,operator.istio.io/managed=Reconcile,operator.istio.io/version=1.5.1
+kube-node-lease      Active   89m   <none>
+kube-public          Active   89m   <none>
+kube-system          Active   89m   <none>
+local-path-storage   Active   88m   <none>
+```
+
+```
+$ kubectl label namespace default istio-injection=enabled
+
+$ kubectl get ns --show-labels
+
+NAME                 STATUS   AGE   LABELS
+default              Active   94m   istio-injection=enabled
+istio-system         Active   56m   istio-injection=disabled,istio-operator-managed=Reconcile,operator.istio.io/component=Base,operator.istio.io/managed=Reconcile,operator.istio.io/version=1.5.1
+kube-node-lease      Active   94m   <none>
+kube-public          Active   94m   <none>
+kube-system          Active   94m   <none>
+local-path-storage   Active   94m   <none>
+```
+
+```
+$ kubectl apply -f web-appA-deployment.yml
+$ kubectl apply -f web-appB-deployment.yml
+$ kubectl apply -f web-app-service.yml
+```
+
 
 ## Installation
 
