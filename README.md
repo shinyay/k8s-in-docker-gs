@@ -351,6 +351,7 @@ $ kubectl exec -it $POD_NAME -n $POD_NAMESPACE -- /nginx-ingress-controller --ve
 $ kubectl patch deployments -n ingress-nginx nginx-ingress-controller -p '{"spec":{"template":{"spec":{"containers":[{"name":"nginx-ingress-controller","ports":[{"containerPort":80,"hostPort":80},{"containerPort":443,"hostPort":443}]}],"nodeSelector":{"ingress-ready":"true"},"tolerations":[{"key":"node-role.kubernetes.io/master","operator":"Equal","effect":"NoSchedule"}]}}}}'
 ```
 
+```
 -------------------------------------------------------------------------------
 NGINX Ingress controller
   Release:       0.30.0
@@ -359,6 +360,33 @@ NGINX Ingress controller
   nginx version: nginx/1.17.8
 
 -------------------------------------------------------------------------------
+```
+
+### Istio
+#### Kind Cluster for Istio with Mapping ports to the host machine
+- Open `30080` port for NodePort as extraPortMappings
+  - You can map extra ports from the nodes to the host machine with extraPortMappings
+
+kind-config-istio.yml
+```yaml
+kind: Cluster
+apiVersion: kind.sigs.k8s.io/v1alpha3
+nodes:
+- role: control-plane
+- role: worker
+  extraPortMappings:
+  - containerPort: 30080
+    hostPort: 30080
+```
+
+```
+$ kind create cluster --config kind-config-istio.yml
+```
+
+```
+$ kubectl config get-contexts
+$ kubectl cluster-info --context kind-kind
+$ kubectl config use-context kind-kind
 ```
 
 ## Installation
