@@ -531,6 +531,73 @@ $ kubectl describe pod web-v1-646dcccbd7-lmcw9|grep Image:
     Image:          shinyay/envweb:0.0.1
 ```
 
+### Apply Istio Gateway
+
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: app
+spec:
+  host: "*"
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: app
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - web-gateway
+  http:
+  - route:
+    - destination:
+        host: web
+        subset: v1
+        port:
+          number: 8080
+      weight: 50
+    - destination:
+        host: web
+        subset: v2
+        port:
+          number: 8080
+      weight: 50
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: web-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+```
+
+```
+$ kubectl apply -f istio-gateway.yml
+
+destinationrule.networking.istio.io/app created
+virtualservice.networking.istio.io/app created
+gateway.networking.istio.io/web-gateway created
+```
 
 ## Installation
 
