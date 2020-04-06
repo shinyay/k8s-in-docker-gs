@@ -514,6 +514,23 @@ $ kubectl apply -f web-appB-deployment.yml
 $ kubectl apply -f web-app-service.yml
 ```
 
+Ready column shows the number of container is `2/2`, which means the pod includes sidecar.
+
+```
+$ kubectl get pods -o wide
+
+NAME                      READY   STATUS    RESTARTS   AGE   IP            NODE          NOMINATED NODE   READINESS GATES
+web-v1-646dcccbd7-lmcw9   2/2     Running   0          59s   10.244.1.10   kind-worker   <none>           <none>
+web-v2-8685f8cfdc-9p95c   2/2     Running   0          54s   10.244.1.11   kind-worker   <none>           <none>
+```
+
+```
+$ kubectl describe pod web-v1-646dcccbd7-lmcw9|grep Image:
+
+    Image:         docker.io/istio/proxyv2:1.5.1
+    Image:          shinyay/envweb:0.0.1
+```
+
 
 ## Installation
 
