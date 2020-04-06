@@ -599,6 +599,20 @@ virtualservice.networking.istio.io/app created
 gateway.networking.istio.io/web-gateway created
 ```
 
+### Confirmation
+```
+$ for i in (seq 20); curl localhost:30080; echo; sleep 1; end
+
+This app is version 2
+This app is version 2
+This app is version 2
+This app is version 1
+This app is version 2
+This app is version 1
+This app is version 1
+This app is version 1
+```
+
 ## Installation
 
 ## Licence
