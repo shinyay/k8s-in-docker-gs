@@ -363,6 +363,7 @@ NGINX Ingress controller
 ```
 
 ### Istio
+- [Istio - Getting Started](https://istio.io/docs/setup/getting-started/#download)
 #### Kind Cluster for Istio with Mapping ports to the host machine
 - Open `30080` port for NodePort as extraPortMappings
   - You can map extra ports from the nodes to the host machine with extraPortMappings
@@ -611,6 +612,15 @@ This app is version 2
 This app is version 1
 This app is version 1
 This app is version 1
+    :
+    :
+```
+
+### Kiali Dashboard
+- admin/admin
+
+```
+$ istioctl dashboard kiali
 ```
 
 ## Installation
